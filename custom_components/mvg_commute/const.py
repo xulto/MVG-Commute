@@ -9,6 +9,12 @@ CONF_DESTINATION_NAME = "destination_name"
 CONF_VIA = "via"
 CONF_VIA_NAME = "via_name"
 CONF_WALK_MINUTES = "walk_minutes"
+CONF_ACTIVE_FROM = "active_from"
+CONF_ACTIVE_UNTIL = "active_until"
+CONF_ACTIVE_DAYS = "active_days"
 
 DEFAULT_WALK_MINUTES = 5
-UPDATE_INTERVAL = timedelta(minutes=2)
+DEFAULT_ACTIVE_FROM = "06:00:00"
+DEFAULT_ACTIVE_UNTIL = "10:00:00"
+DEFAULT_ACTIVE_DAYS = ["mon", "tue", "wed", "thu", "fri"]
+UPDATE_INTERVAL = timedelta(minutes=5)

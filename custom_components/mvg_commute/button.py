@@ -18,4 +18,4 @@ async def async_setup_entry(
 
 class MvgRefreshButton(MvgCommuteEntity, ButtonEntity):
     async def async_press(self) -> None:
-        await self.coordinator.async_request_refresh()
+        await self.coordinator.async_fetch_now()

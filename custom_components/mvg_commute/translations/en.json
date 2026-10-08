@@ -3,43 +3,63 @@
     "step": {
       "user": {
         "title": "MVG commute",
-        "description": "Search for the start and destination stations. You'll pick the exact match next.",
+        "description": "Pick the stations. Type in a field to search MVG's stations.",
         "data": {
           "origin": "Start station",
-          "destination": "Destination station",
           "via": "Change at (optional)",
-          "walk_minutes": "Walk to the start station"
+          "destination": "Destination station",
+          "walk_minutes": "Walk to the start station",
+          "active_from": "Poll from",
+          "active_until": "Poll until",
+          "active_days": "Poll on"
         },
         "data_description": {
           "walk_minutes": "Minutes from your door to the start stop. Subtracted from the first departure to get when to leave.",
-          "via": "Fix the route to buses that go through this stop. Leave empty to let MVG's journey planner choose."
+          "via": "Fix the route to buses that go through this stop. Leave empty to let MVG's journey planner choose.",
+          "active_from": "Live data is fetched every 5 minutes inside this window only. The Refresh button always fetches.",
+          "active_until": "Same as the start for all day. Earlier than the start runs past midnight."
         }
       },
-      "stations": {
-        "title": "Pick stations",
+      "reconfigure": {
+        "title": "Change stations",
         "data": {
           "origin": "Start station",
-          "via": "Change at",
+          "via": "Change at (optional)",
           "destination": "Destination station"
+        },
+        "data_description": {
+          "via": "Fix the route to buses that go through this stop. Leave empty to let MVG's journey planner choose."
         }
       }
     },
     "error": {
-      "cannot_connect": "Could not reach the MVG API.",
-      "no_station": "No station found. Try another spelling.",
-      "same_station": "Start, change and destination stations must all differ."
+      "unknown_station": "Pick a station from the list.",
+      "same_station": "Start, change and destination stations must all differ.",
+      "no_days": "Pick at least one day."
     },
     "abort": {
-      "already_configured": "This commute is already set up."
+      "already_configured": "This commute is already set up.",
+      "reconfigure_successful": "Stations updated."
     }
   },
   "options": {
     "step": {
       "init": {
         "data": {
-          "walk_minutes": "Walk to the start station"
+          "walk_minutes": "Walk to the start station",
+          "active_from": "Poll from",
+          "active_until": "Poll until",
+          "active_days": "Poll on"
+        },
+        "data_description": {
+          "walk_minutes": "Minutes from your door to the start stop. Subtracted from the first departure to get when to leave.",
+          "active_from": "Live data is fetched every 5 minutes inside this window only. The Refresh button always fetches.",
+          "active_until": "Same as the start for all day. Earlier than the start runs past midnight."
         }
       }
+    },
+    "error": {
+      "no_days": "Pick at least one day."
     }
   },
   "entity": {
@@ -71,6 +91,19 @@
     "button": {
       "refresh": {
         "name": "Refresh"
+      }
+    }
+  },
+  "selector": {
+    "weekdays": {
+      "options": {
+        "mon": "Monday",
+        "tue": "Tuesday",
+        "wed": "Wednesday",
+        "thu": "Thursday",
+        "fri": "Friday",
+        "sat": "Saturday",
+        "sun": "Sunday"
       }
     }
   }

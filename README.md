@@ -16,13 +16,16 @@ add `https://github.com/xulto/MVG-Commute` with type *Integration*, install **MV
 **Manual:** copy `custom_components/mvg_commute/` into `/config/custom_components/`
 (using the Samba, SSH or Studio Code Server add-on) and restart HA.
 
-Then go to *Settings → Devices & services → Add integration → MVG Commute*:
-1. Enter search terms for the start and destination stations, an optional
-   **Change at** station, and your walking time to the start stop.
-2. Pick the exact stations from the matches.
+Then go to *Settings → Devices & services → Add integration → MVG Commute*,
+and pick the start station, an optional **Change at** station and the
+destination. Type in a field to search. The list contains MVG's ~1,180
+stations (Munich and a few neighbours like Germering and Unterföhring) and is
+bundled with the integration, so it opens instantly and needs no network.
+On the same page, set your walking time to the start stop and the polling
+window.
 
-Add the integration once per direction. To change the walking time later, use the
-integration's *Configure* option.
+Add the integration once per direction. Use *Configure* to change the walking
+time and polling window, and *Reconfigure* to change the stations.
 
 ## Two modes
 
@@ -57,26 +60,24 @@ integration's *Configure* option.
 
 ## Polling
 
-The integration polls every 2 minutes. To poll only on demand, turn off
-*System options → Enable polling for updates* on the integration entry and press
-the refresh button from an automation, for example on weekday mornings:
+Each direction only polls during its own window: every **5 minutes**,
+starting right when the window opens. You set the window when adding the
+integration and can change it later under *Configure*:
 
-```yaml
-automation:
-  - alias: Refresh commute before work
-    triggers:
-      - trigger: time_pattern
-        minutes: "/2"
-    conditions:
-      - condition: time
-        after: "07:00:00"
-        before: "09:00:00"
-        weekday: [mon, tue, wed, thu, fri]
-    actions:
-      - action: button.press
-        target:
-          entity_id: button.olympia_einkaufszentrum_west_am_hart_refresh
-```
+- **Poll from / Poll until**: default 06:00–10:00. Setting both to the same
+  time polls all day. An end time earlier than the start runs past midnight,
+  e.g. 22:00–01:00.
+- **Poll on**: default Monday to Friday. A window that runs past midnight
+  counts for the day it started.
+
+For example, use 06:30–09:00 for the outbound direction and 16:00–19:00 for
+the way home.
+
+Outside the window there are no API calls. The sensors keep the last data and
+drop each connection once its leave time has passed. The **Refresh** button
+always fetches, inside or outside the window.
+
+In change-stop mode each fetch is 3 requests (one per stop), otherwise 1.
 
 ## Development
 
@@ -87,6 +88,12 @@ logic and doesn't import Home Assistant. Try it from the CLI:
 uv run --no-project --with aiohttp cli.py "Olympia-Einkaufszentrum West" "Am Hart" --walk 5
 uv run --no-project --with aiohttp cli.py "Olympia-Einkaufszentrum West" "Am Hart" --via "Anhalter Platz"
 uv run --no-project --with aiohttp cli.py "Am Hart Süd" "Olympia-Einkaufszentrum West" --via "Anhalter Platz"
+```
+
+Refresh the bundled station list (`custom_components/mvg_commute/stations.json`):
+
+```sh
+python3 scripts/update_stations.py
 ```
 
 Run the tests (unit tests plus integration tests in a real HA core):
