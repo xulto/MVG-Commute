@@ -1,0 +1,77 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "MVG commute",
+        "description": "Search for the start and destination stations. You'll pick the exact match next.",
+        "data": {
+          "origin": "Start station",
+          "destination": "Destination station",
+          "via": "Change at (optional)",
+          "walk_minutes": "Walk to the start station"
+        },
+        "data_description": {
+          "walk_minutes": "Minutes from your door to the start stop. Subtracted from the first departure to get when to leave.",
+          "via": "Fix the route to buses that go through this stop. Leave empty to let MVG's journey planner choose."
+        }
+      },
+      "stations": {
+        "title": "Pick stations",
+        "data": {
+          "origin": "Start station",
+          "via": "Change at",
+          "destination": "Destination station"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the MVG API.",
+      "no_station": "No station found. Try another spelling.",
+      "same_station": "Start, change and destination stations must all differ."
+    },
+    "abort": {
+      "already_configured": "This commute is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "walk_minutes": "Walk to the start station"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "leave_at": {
+        "name": "Leave at"
+      },
+      "minutes_until_leave": {
+        "name": "Minutes until leave"
+      },
+      "arrival": {
+        "name": "Arrival"
+      },
+      "transfer_wait": {
+        "name": "Transfer wait"
+      },
+      "route": {
+        "name": "Route"
+      },
+      "next_leave_at": {
+        "name": "Next option leave at"
+      }
+    },
+    "binary_sensor": {
+      "live_data": {
+        "name": "Live data"
+      }
+    },
+    "button": {
+      "refresh": {
+        "name": "Refresh"
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "domain": "mvg_commute",
+  "name": "MVG Commute",
+  "codeowners": ["@xulto"],
+  "config_flow": true,
+  "documentation": "https://github.com/xulto/MVG-Commute",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/xulto/MVG-Commute/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}
